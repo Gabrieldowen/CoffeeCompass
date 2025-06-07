@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section bg-gradient-coffee text-white py-5">
+    <div class="container text-center">
+        <div class="hero-content animate__animated animate__bounceIn">
+            <h1 class="display-2 fw-bold mb-4">
+                <i class="fas fa-coffee rotate-animation"></i> 
+                Epic Coffee Journeys
+            </h1>
+            <p class="lead fs-3 mb-4">
+                Document your dramatic caffeinated adventures with photos, drawings, and over-the-top reviews!
+            </p>
+            <a href="{{ url_for('new_journey') }}" class="btn btn-warning btn-lg px-5 py-3 fs-4 btn-bounce">
+                <i class="fas fa-rocket"></i> Start Your Journey!
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Stock Photos Section -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="display-4 fw-bold text-coffee mb-4">
+            <i class="fas fa-images"></i> Coffee Mood Gallery
+        </h2>
+        <p class="lead">Get inspired by these dramatic coffee moments!</p>
+    </div>
+
+    <!-- Funny Coffee Memes -->
+    <div class="mb-5">
+        <h3 class="text-center mb-4 text-danger fw-bold">
+            <i class="fas fa-laugh-squint"></i> Hilarious Coffee Memes
+        </h3>
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/g3f631a362f75f434bde69868a89eeb912b91284d524746de7b06d0fd2904200f7f73902ed3158f6ee7361eeeb2ac423455cc0856d07fb0cd0ff260aae872ba23_1280.jpg" class="card-img-top" alt="Funny Coffee">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Coffee Emergency!</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/gf1e45e7bae9d6459440e8d66ad7890dfe1e9a90dbd27ed1b5ea5ee661f4a426b96927e69fe2c020e8b8d9e1c7ee9b0ea7b9c5932a43d59cd9676dd36b9a06402_1280.jpg" class="card-img-top" alt="Coffee Humor">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Morning Mood</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/gf1cf9313f22e4be923e9250b348e78819c91d903971021c43bc9d54613d2ccc21067a6ed0a97575e976fe26ab1ebabe30dd002043ab684ea0bab4e902cc282bf_1280.jpg" class="card-img-top" alt="Coffee Fun">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Coffee Goals</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/ga4806187bd990c004d939dddd734ba467b32e4447f3d4409fbaf7030dd998e39eb115081bf2c1c96afe76007d67db2a7609e7755dd94910bb765ec7425f77d2f_1280.jpg" class="card-img-top" alt="Coffee Meme">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Pure Bliss</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dramatic Coffee Expressions -->
+    <div class="mb-5">
+        <h3 class="text-center mb-4 text-primary fw-bold">
+            <i class="fas fa-theater-masks"></i> Dramatic Coffee Expressions
+        </h3>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/gf0fd416523d66dd384fd67d0b7e9fbc27af4330b66728b31f49bf5247defb5e538b0bc607f91634fb1238a17b76eac9d1faf9ee7b5b33596f4eeedfe1bf8effb_1280.jpg" class="card-img-top" alt="Dramatic Coffee">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">The Awakening</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/g39ecbbb3ee9bff18a2866fec8a1b982edf73dcb6ba14b8ee8b49a96415b2ed089140cc8223a53e3f281e34fbd95aab6baf18f3fc3877da9761fdc7cad0ab2c8e_1280.jpg" class="card-img-top" alt="Coffee Expression">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Coffee Shock</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/gf96c74bd24026d7875c301789ad86050173b215838827191c7b8f51727fe6aad4258091c01e9ca397f5c9815000fb234244227f9b14bb9d8a5dc530144b43870_1280.jpg" class="card-img-top" alt="Coffee Drama">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Pure Ecstasy</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Silly Coffee Art -->
+    <div class="mb-5">
+        <h3 class="text-center mb-4 text-success fw-bold">
+            <i class="fas fa-palette"></i> Silly Coffee Art
+        </h3>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/gab755bc5082679b7cb19bd7b0690c6c09483011744e7c16452d37e95ef3d59cc5d640b2860cc2d983164e3378c63fb61d1ecaffc2f97f9be38d1774e5492c5e0_1280.jpg" class="card-img-top" alt="Coffee Art">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Latte Masterpiece</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/g425f68b385189416d16d9def842696de1502a319c5a9695b5da5e0f6fcee8a8f6a931a570bd5a17b3752ff7b60077f79782944506eb047b2f30e72fa6b966c57_1280.jpg" class="card-img-top" alt="Creative Coffee">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Artistic Expression</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card coffee-card h-100 shadow-lg">
+                    <img src="https://pixabay.com/get/g97836e9f9d0283f871f8542d8c7a0691ff2fd61975923f8a8c7ba0d6ec4caf670b69697cfaa0d10a3399e0fff4ce2a7e925bf8b32ef765813acfa30ae170f06a_1280.jpg" class="card-img-top" alt="Fun Coffee">
+                    <div class="card-body text-center">
+                        <h6 class="card-title fw-bold">Coffee Creativity</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Journeys -->
+{% if recent_journeys %}
+<div class="bg-light py-5">
+    <div class="container">
+        <h2 class="display-4 fw-bold text-coffee text-center mb-5">
+            <i class="fas fa-star"></i> Latest Epic Journeys
+        </h2>
+        <div class="row g-4">
+            {% for journey in recent_journeys %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card journey-card h-100 shadow-lg">
+                    {% if journey.before_photo %}
+                    <img src="{{ journey.before_photo }}" class="card-img-top" alt="Coffee Journey" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-coffee">{{ journey.drink_name }}</h5>
+                        <p class="card-text">
+                            <i class="fas fa-map-marker-alt text-danger"></i> {{ journey.coffee_shop }}
+                        </p>
+                        <div class="row text-center mb-3">
+                            <div class="col-4">
+                                <div class="rating-badge bg-warning text-dark">
+                                    <i class="fas fa-bolt"></i><br>
+                                    <small>Energy</small><br>
+                                    <strong>{{ journey.energy_level }}/10</strong>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="rating-badge bg-success text-white">
+                                    <i class="fas fa-heart"></i><br>
+                                    <small>Taste</small><br>
+                                    <strong>{{ journey.taste_rating }}/10</strong>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="rating-badge bg-danger text-white">
+                                    <i class="fas fa-theater-masks"></i><br>
+                                    <small>Drama</small><br>
+                                    <strong>{{ journey.drama_level }}/10</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('journey_detail', id=journey.id) }}" class="btn btn-coffee w-100">
+                            <i class="fas fa-eye"></i> View Journey
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('gallery') }}" class="btn btn-outline-coffee btn-lg">
+                <i class="fas fa-images"></i> View All Journeys
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

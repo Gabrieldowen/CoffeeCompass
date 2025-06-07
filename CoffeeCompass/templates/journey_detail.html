@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %}{{ journey.drink_name }} Journey{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-3 fw-bold text-coffee">
+            <i class="fas fa-star bounce-animation"></i> 
+            {{ journey.drink_name }}
+        </h1>
+        <p class="lead fs-4">
+            <i class="fas fa-map-marker-alt text-danger"></i> 
+            {{ journey.coffee_shop }}
+        </p>
+        <small class="text-muted">
+            <i class="fas fa-calendar"></i> 
+            {{ journey.created_at.strftime('%B %d, %Y at %I:%M %p') }}
+        </small>
+    </div>
+
+    <!-- Before/After Photos Comparison -->
+    {% if journey.before_photo or journey.after_photo %}
+    <div class="card mb-5 shadow-lg">
+        <div class="card-header bg-gradient-coffee text-white">
+            <h3 class="mb-0"><i class="fas fa-camera"></i> The Transformation</h3>
+            {% if journey.get_time_difference() != "Unknown" %}
+            <p class="mb-0">Journey Duration: <strong>{{ journey.get_time_difference() }}</strong></p>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <div class="row g-4">
+                {% if journey.before_photo %}
+                <div class="col-md-6">
+                    <div class="photo-container">
+                        <img src="{{ journey.before_photo }}" class="img-fluid rounded shadow" alt="Before Photo">
+                        <div class="photo-label bg-warning text-dark">
+                            <i class="fas fa-clock"></i> BEFORE
+                            {% if journey.before_photo_time %}
+                            <br><small>{{ journey.before_photo_time.strftime('%I:%M:%S %p') }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if journey.after_photo %}
+                <div class="col-md-6">
+                    <div class="photo-container">
+                        <img src="{{ journey.after_photo }}" class="img-fluid rounded shadow" alt="After Photo">
+                        <div class="photo-label bg-success text-white">
+                            <i class="fas fa-check"></i> AFTER
+                            {% if journey.after_photo_time %}
+                            <br><small>{{ journey.after_photo_time.strftime('%I:%M:%S %p') }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Epic Ratings -->
+    <div class="card mb-5 shadow-lg">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0"><i class="fas fa-star"></i> Epic Ratings</h3>
+        </div>
+        <div class="card-body">
+            <div class="row text-center">
+                <div class="col-md-4 mb-3">
+                    <div class="rating-display bg-warning text-dark">
+                        <i class="fas fa-bolt display-4"></i>
+                        <h4 class="mt-2">Energy Level</h4>
+                        <div class="rating-bar">
+                            <div class="rating-fill bg-warning" style="width: {{ (journey.energy_level / 10) * 100 }}%"></div>
+                        </div>
+                        <h2 class="fw-bold">{{ journey.energy_level }}/10</h2>
+                        <p class="rating-text">
+                            {% if journey.energy_level <= 3 %}Still sleepy
+                            {% elif journey.energy_level <= 6 %}Getting there
+                            {% elif journey.energy_level <= 8 %}Energized!
+                            {% else %}SUPER CHARGED!
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="rating-display bg-success text-white">
+                        <i class="fas fa-heart display-4"></i>
+                        <h4 class="mt-2">Taste Rating</h4>
+                        <div class="rating-bar">
+                            <div class="rating-fill bg-success" style="width: {{ (journey.taste_rating / 10) * 100 }}%"></div>
+                        </div>
+                        <h2 class="fw-bold">{{ journey.taste_rating }}/10</h2>
+                        <p class="rating-text">
+                            {% if journey.taste_rating <= 3 %}Needs work
+                            {% elif journey.taste_rating <= 6 %}Pretty good
+                            {% elif journey.taste_rating <= 8 %}Delicious!
+                            {% else %}HEAVENLY!
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="rating-display bg-danger text-white">
+                        <i class="fas fa-theater-masks display-4"></i>
+                        <h4 class="mt-2">Drama Level</h4>
+                        <div class="rating-bar">
+                            <div class="rating-fill bg-danger" style="width: {{ (journey.drama_level / 10) * 100 }}%"></div>
+                        </div>
+                        <h2 class="fw-bold">{{ journey.drama_level }}/10</h2>
+                        <p class="rating-text">
+                            {% if journey.drama_level <= 3 %}Chill vibes
+                            {% elif journey.drama_level <= 6 %}Some excitement
+                            {% elif journey.drama_level <= 8 %}Very dramatic!
+                            {% else %}EPIC DRAMA!
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Silly Adjectives -->
+    {% if journey.get_silly_adjectives() %}
+    <div class="card mb-5 shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0"><i class="fas fa-magic"></i> Silly Adjectives</h3>
+        </div>
+        <div class="card-body text-center">
+            {% for adjective in journey.get_silly_adjectives() %}
+            <span class="badge bg-primary fs-5 me-2 mb-2 p-3">{{ adjective }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Live Review -->
+    {% if journey.live_review %}
+    <div class="card mb-5 shadow-lg">
+        <div class="card-header bg-info text-white">
+            <h3 class="mb-0"><i class="fas fa-edit"></i> Epic Live Review</h3>
+            {% if journey.review_start_time and journey.review_end_time %}
+            <p class="mb-0">
+                Written from {{ journey.review_start_time.strftime('%I:%M:%S %p') }} 
+                to {{ journey.review_end_time.strftime('%I:%M:%S %p') }}
+            </p>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <div class="review-text fs-5 lh-base">
+                {{ journey.live_review | replace('\n', '<br>') | safe }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Drawing -->
+    {% if journey.drawing %}
+    <div class="card mb-5 shadow-lg">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0"><i class="fas fa-palette"></i> Artistic Expression</h3>
+            <p class="mb-0">How this coffee made them feel</p>
+        </div>
+        <div class="card-body text-center">
+            <img src="{{ journey.drawing }}" class="img-fluid rounded shadow" alt="Coffee Feelings Drawing" style="max-height: 400px;">
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Navigation -->
+    <div class="text-center">
+        <a href="{{ url_for('gallery') }}" class="btn btn-outline-coffee btn-lg me-3">
+            <i class="fas fa-arrow-left"></i> Back to Gallery
+        </a>
+        <a href="{{ url_for('new_journey') }}" class="btn btn-coffee btn-lg">
+            <i class="fas fa-plus-circle"></i> New Journey
+        </a>
+    </div>
+</div>
+{% endblock %}

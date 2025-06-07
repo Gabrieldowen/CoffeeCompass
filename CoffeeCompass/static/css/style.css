@@ -1,0 +1,484 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Comic+Neue:wght@300;400;700&display=swap');
+
+/* Root Variables */
+:root {
+    --coffee-primary: #8B4513;
+    --coffee-secondary: #D2691E;
+    --coffee-accent: #F4A460;
+    --coffee-dark: #654321;
+    --gradient-coffee: linear-gradient(135deg, #8B4513, #D2691E, #F4A460);
+    --gradient-warning: linear-gradient(135deg, #FFA500, #FFD700);
+    --gradient-success: linear-gradient(135deg, #32CD32, #228B22);
+    --gradient-danger: linear-gradient(135deg, #FF6347, #DC143C);
+    --gradient-info: linear-gradient(135deg, #1E90FF, #4169E1);
+}
+
+/* Base Styles */
+body {
+    font-family: 'Comic Neue', cursive;
+    background: linear-gradient(45deg, #FFF8DC, #F5F5DC);
+    min-height: 100vh;
+}
+
+/* Text Colors */
+.text-coffee {
+    color: var(--coffee-primary) !important;
+}
+
+/* Background Gradients */
+.bg-coffee {
+    background: var(--coffee-primary) !important;
+}
+
+.bg-gradient-coffee {
+    background: var(--gradient-coffee) !important;
+}
+
+/* Buttons */
+.btn-coffee {
+    background: var(--gradient-coffee);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+}
+
+.btn-coffee:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+    color: white;
+}
+
+.btn-outline-coffee {
+    border: 2px solid var(--coffee-primary);
+    color: var(--coffee-primary);
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-coffee:hover {
+    background: var(--gradient-coffee);
+    border-color: var(--coffee-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Button Animations */
+.btn-bounce {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Header Animations */
+.bounce-animation {
+    animation: bounce 2s infinite;
+}
+
+.rotate-animation {
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.pulse-animation {
+    animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+    animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.coffee-card {
+    background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.coffee-card:hover {
+    border-color: var(--coffee-accent);
+}
+
+.journey-card {
+    background: linear-gradient(135deg, #FFFFFF, #FFF8DC);
+}
+
+/* Photo Previews */
+.photo-preview {
+    min-height: 300px;
+    background: #f8f9fa;
+    border: 3px dashed #dee2e6;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.photo-container {
+    position: relative;
+    display: inline-block;
+}
+
+.photo-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Camera Styles */
+.camera-preview {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    border-radius: 15px;
+    border: 3px solid var(--coffee-accent);
+    margin: 0 auto;
+    display: block;
+}
+
+/* Drawing Canvas */
+#drawingCanvas {
+    background: white;
+    cursor: crosshair;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Rating Displays */
+.rating-display {
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.rating-display:hover {
+    transform: scale(1.05);
+}
+
+.rating-bar {
+    background: rgba(255, 255, 255, 0.3);
+    height: 20px;
+    border-radius: 10px;
+    margin: 1rem 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.rating-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.8s ease;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.2) 2px,
+        rgba(255, 255, 255, 0.2) 4px
+    );
+}
+
+.rating-text {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+/* Rating Badges */
+.rating-badge {
+    padding: 1rem;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.rating-badge:hover {
+    transform: scale(1.1);
+}
+
+/* Step Cards */
+.step-card {
+    border-left: 5px solid var(--coffee-primary);
+    transition: all 0.3s ease;
+}
+
+.step-card.active {
+    border-left-color: var(--coffee-accent);
+    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.2);
+}
+
+/* Form Controls */
+.form-control, .form-select {
+    border-radius: 15px;
+    border: 2px solid #e9ecef;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--coffee-accent);
+    box-shadow: 0 0 0 0.2rem rgba(244, 164, 96, 0.25);
+}
+
+.form-control-lg {
+    font-size: 1.1rem;
+    padding: 16px 20px;
+}
+
+/* Review Text */
+.review-text {
+    background: linear-gradient(135deg, #F8F9FA, #E9ECEF);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 5px solid var(--coffee-primary);
+    font-style: italic;
+    line-height: 1.8;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #6c757d;
+}
+
+.empty-state i {
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+/* Carousel Customization */
+.carousel-caption {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    left: auto;
+    bottom: auto;
+    background: none;
+    padding: 0;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 8%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
+}
+
+.carousel-control-next {
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.3), transparent);
+}
+
+/* Navbar */
+.navbar-brand {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem !important;
+}
+
+.navbar-nav .nav-link {
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    margin: 0 5px;
+    padding: 8px 15px !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Journey Form */
+.journey-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .hero-section .display-2 {
+        font-size: 3rem;
+    }
+    
+    .hero-section .lead {
+        font-size: 1.5rem;
+    }
+    
+    .camera-preview {
+        height: 250px;
+    }
+    
+    .rating-display {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    #drawingCanvas {
+        width: 100%;
+        height: 300px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Additional Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-coffee);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--coffee-dark);
+}
+
+/* Badge Styling */
+.badge {
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--coffee-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}

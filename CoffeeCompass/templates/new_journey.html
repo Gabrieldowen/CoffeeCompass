@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block title %}New Coffee Journey{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-3 fw-bold text-coffee">
+            <i class="fas fa-rocket bounce-animation"></i> 
+            Start Your Epic Coffee Journey!
+        </h1>
+        <p class="lead">Document your dramatic caffeinated adventure with photos, reviews, and drawings!</p>
+    </div>
+
+    <form id="journeyForm" method="POST" action="{{ url_for('save_journey') }}" class="journey-form">
+        <!-- Basic Info -->
+        <div class="card mb-4 shadow-lg">
+            <div class="card-header bg-coffee text-white">
+                <h3 class="mb-0"><i class="fas fa-info-circle"></i> Basic Info</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="coffee_shop" class="form-label fw-bold">Coffee Shop</label>
+                        <input type="text" class="form-control form-control-lg" id="coffee_shop" name="coffee_shop" required placeholder="Where's this magical place?">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="drink_name" class="form-label fw-bold">Drink Name</label>
+                        <input type="text" class="form-control form-control-lg" id="drink_name" name="drink_name" required placeholder="What's your poison?">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Before Photo -->
+        <div class="card mb-4 shadow-lg step-card" id="step1">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="mb-0"><i class="fas fa-camera"></i> Step 1: Before Photo</h3>
+                <p class="mb-0">Capture your pre-coffee state of being</p>
+            </div>
+            <div class="card-body">
+                <div class="camera-section mb-4">
+                    <video id="beforeVideo" class="camera-preview d-none" autoplay playsinline></video>
+                    <canvas id="beforeCanvas" class="d-none"></canvas>
+                    <div id="beforePhotoPreview" class="photo-preview"></div>
+                    
+                    <div class="camera-controls text-center">
+                        <button type="button" id="startBeforeCamera" class="btn btn-primary btn-lg me-2">
+                            <i class="fas fa-video"></i> Start Camera
+                        </button>
+                        <button type="button" id="takeBeforePhoto" class="btn btn-success btn-lg me-2 d-none">
+                            <i class="fas fa-camera"></i> Take Photo
+                        </button>
+                        <button type="button" id="retakeBeforePhoto" class="btn btn-warning btn-lg d-none">
+                            <i class="fas fa-redo"></i> Retake
+                        </button>
+                    </div>
+                    
+                    <div class="alternative-options text-center mt-3">
+                        <p class="text-muted">Or choose another option:</p>
+                        <button type="button" id="uploadBeforePhoto" class="btn btn-outline-info me-2">
+                            <i class="fas fa-upload"></i> Upload Photo
+                        </button>
+                        <button type="button" id="skipBeforePhoto" class="btn btn-outline-secondary">
+                            <i class="fas fa-skip-forward"></i> Skip Photo
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" id="continueToReview" class="btn btn-coffee btn-lg d-none">
+                        <i class="fas fa-arrow-right"></i> Continue to Live Review
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Live Review -->
+        <div class="card mb-4 shadow-lg step-card d-none" id="step2">
+            <div class="card-header bg-info text-white">
+                <h3 class="mb-0"><i class="fas fa-edit"></i> Step 2: Live Review</h3>
+                <p class="mb-0">Write your review as you taste!</p>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="live_review" class="form-label fw-bold">Your Epic Review</label>
+                    <textarea class="form-control" id="live_review" name="live_review" rows="6" placeholder="Start typing as you taste... be dramatic!"></textarea>
+                    <div class="form-text">
+                        <span id="reviewTimer" class="text-info fw-bold">Review time: 0m 0s</span>
+                    </div>
+                </div>
+                
+                <!-- Review Suggestions -->
+                <div class="mb-3">
+                    <button type="button" id="getRandomDescription" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-lightbulb"></i> Get Inspiration
+                    </button>
+                    <button type="button" id="getRandomAdjective" class="btn btn-outline-warning">
+                        <i class="fas fa-magic"></i> Random Adjective
+                    </button>
+                </div>
+
+                <!-- Rating Sliders -->
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold text-warning">
+                            <i class="fas fa-bolt"></i> Energy Level
+                        </label>
+                        <input type="range" class="form-range" id="energy_level" name="energy_level" min="1" max="10" value="5">
+                        <div class="text-center">
+                            <span id="energyValue" class="badge bg-warning text-dark fs-6">5/10</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold text-success">
+                            <i class="fas fa-heart"></i> Taste Rating
+                        </label>
+                        <input type="range" class="form-range" id="taste_rating" name="taste_rating" min="1" max="10" value="5">
+                        <div class="text-center">
+                            <span id="tasteValue" class="badge bg-success fs-6">5/10</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold text-danger">
+                            <i class="fas fa-theater-masks"></i> Drama Level
+                        </label>
+                        <input type="range" class="form-range" id="drama_level" name="drama_level" min="1" max="10" value="5">
+                        <div class="text-center">
+                            <span id="dramaValue" class="badge bg-danger fs-6">5/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" id="continueToDrawing" class="btn btn-coffee btn-lg">
+                        <i class="fas fa-arrow-right"></i> Continue to Drawing
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Drawing -->
+        <div class="card mb-4 shadow-lg step-card d-none" id="step3">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0"><i class="fas fa-palette"></i> Step 3: Draw Your Feelings</h3>
+                <p class="mb-0">Express how this coffee made you feel!</p>
+            </div>
+            <div class="card-body">
+                <div class="drawing-section mb-4">
+                    <canvas id="drawingCanvas" width="800" height="400" class="border border-3 rounded mb-3"></canvas>
+                    <div class="drawing-controls mb-3">
+                        <button type="button" id="clearCanvas" class="btn btn-outline-danger me-2">
+                            <i class="fas fa-eraser"></i> Clear
+                        </button>
+                        <label class="me-2">Color:</label>
+                        <input type="color" id="colorPicker" class="form-control-color me-3" value="#000000">
+                        <label class="me-2">Size:</label>
+                        <input type="range" id="brushSize" class="form-range" min="1" max="20" value="5" style="width: 100px;">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" id="continueToAfter" class="btn btn-coffee btn-lg">
+                        <i class="fas fa-arrow-right"></i> Continue to After Photo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: After Photo -->
+        <div class="card mb-4 shadow-lg step-card d-none" id="step4">
+            <div class="card-header bg-danger text-white">
+                <h3 class="mb-0"><i class="fas fa-camera"></i> Step 4: After Photo</h3>
+                <p class="mb-0">Show us your post-coffee transformation!</p>
+            </div>
+            <div class="card-body">
+                <div class="camera-section mb-4">
+                    <video id="afterVideo" class="camera-preview d-none" autoplay playsinline></video>
+                    <canvas id="afterCanvas" class="d-none"></canvas>
+                    <div id="afterPhotoPreview" class="photo-preview"></div>
+                    
+                    <div class="camera-controls text-center">
+                        <button type="button" id="startAfterCamera" class="btn btn-primary btn-lg me-2">
+                            <i class="fas fa-video"></i> Start Camera
+                        </button>
+                        <button type="button" id="takeAfterPhoto" class="btn btn-success btn-lg me-2 d-none">
+                            <i class="fas fa-camera"></i> Take Photo
+                        </button>
+                        <button type="button" id="retakeAfterPhoto" class="btn btn-warning btn-lg d-none">
+                            <i class="fas fa-redo"></i> Retake
+                        </button>
+                    </div>
+                    
+                    <div class="alternative-options text-center mt-3">
+                        <p class="text-muted">Or choose another option:</p>
+                        <button type="button" id="uploadAfterPhoto" class="btn btn-outline-info me-2">
+                            <i class="fas fa-upload"></i> Upload Photo
+                        </button>
+                        <button type="button" id="skipAfterPhoto" class="btn btn-outline-secondary">
+                            <i class="fas fa-skip-forward"></i> Skip Photo
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" id="finishJourney" class="btn btn-success btn-lg">
+                        <i class="fas fa-check"></i> Complete Journey!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden inputs for timestamps and photo data -->
+        <input type="hidden" id="before_photo" name="before_photo">
+        <input type="hidden" id="after_photo" name="after_photo">
+        <input type="hidden" id="drawing" name="drawing">
+        <input type="hidden" id="before_photo_time" name="before_photo_time">
+        <input type="hidden" id="after_photo_time" name="after_photo_time">
+        <input type="hidden" id="review_start_time" name="review_start_time">
+        <input type="hidden" id="review_end_time" name="review_end_time">
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+<script src="{{ url_for('static', filename='js/drawing.js') }}"></script>
+<script>
+// Journey flow management
+let reviewStartTime = null;
+let cameraManager = null;
+
+// Initialize camera manager when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Import the global camera manager instance
+    setTimeout(() => {
+        cameraManager = window.cameraManager || new CameraManager();
+    }, 100);
+});
+
+document.getElementById('continueToReview').addEventListener('click', function() {
+    document.getElementById('step1').classList.add('d-none');
+    document.getElementById('step2').classList.remove('d-none');
+    reviewStartTime = new Date().toISOString();
+    document.getElementById('review_start_time').value = reviewStartTime;
+    startReviewTimer();
+});
+
+document.getElementById('continueToDrawing').addEventListener('click', function() {
+    document.getElementById('review_end_time').value = new Date().toISOString();
+    document.getElementById('step2').classList.add('d-none');
+    document.getElementById('step3').classList.remove('d-none');
+});
+
+document.getElementById('continueToAfter').addEventListener('click', function() {
+    // Save drawing data
+    const canvas = document.getElementById('drawingCanvas');
+    document.getElementById('drawing').value = canvas.toDataURL();
+    
+    document.getElementById('step3').classList.add('d-none');
+    document.getElementById('step4').classList.remove('d-none');
+});
+
+document.getElementById('finishJourney').addEventListener('click', function() {
+    document.getElementById('journeyForm').submit();
+});
+
+// Review timer
+function startReviewTimer() {
+    const timerElement = document.getElementById('reviewTimer');
+    const startTime = new Date(reviewStartTime);
+    
+    setInterval(() => {
+        const now = new Date();
+        const diff = now - startTime;
+        const minutes = Math.floor(diff / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        timerElement.textContent = `Review time: ${minutes}m ${seconds}s`;
+    }, 1000);
+}
+
+// Rating sliders
+document.getElementById('energy_level').addEventListener('input', function() {
+    document.getElementById('energyValue').textContent = this.value + '/10';
+});
+
+document.getElementById('taste_rating').addEventListener('input', function() {
+    document.getElementById('tasteValue').textContent = this.value + '/10';
+});
+
+document.getElementById('drama_level').addEventListener('input', function() {
+    document.getElementById('dramaValue').textContent = this.value + '/10';
+});
+
+// Alternative photo upload buttons
+document.getElementById('uploadBeforePhoto').addEventListener('click', function() {
+    cameraManager.showFileUpload('before');
+});
+
+document.getElementById('skipBeforePhoto').addEventListener('click', function() {
+    cameraManager.skipPhoto('before');
+});
+
+document.getElementById('uploadAfterPhoto').addEventListener('click', function() {
+    cameraManager.showFileUpload('after');
+});
+
+document.getElementById('skipAfterPhoto').addEventListener('click', function() {
+    cameraManager.skipPhoto('after');
+});
+
+// Random content generators
+document.getElementById('getRandomDescription').addEventListener('click', async function() {
+    try {
+        const response = await fetch('/api/random-description');
+        const data = await response.json();
+        const textarea = document.getElementById('live_review');
+        textarea.value += (textarea.value ? '\n\n' : '') + data.description;
+    } catch (error) {
+        console.error('Error fetching description:', error);
+    }
+});
+
+document.getElementById('getRandomAdjective').addEventListener('click', async function() {
+    try {
+        const response = await fetch('/api/random-adjective');
+        const data = await response.json();
+        const textarea = document.getElementById('live_review');
+        const cursorPos = textarea.selectionStart;
+        const text = textarea.value;
+        textarea.value = text.slice(0, cursorPos) + data.adjective + ' ' + text.slice(cursorPos);
+    } catch (error) {
+        console.error('Error fetching adjective:', error);
+    }
+});
+</script>
+{% endblock %}
